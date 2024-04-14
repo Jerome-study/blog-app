@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Barlow } from "next/font/google";
 import "./globals.css";
-import { NavigationBar } from "@/components/Navigationbar";
+import { NavigationBar } from "@/components/navigation/Navigationbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontFamily = Barlow({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: "Blog App",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${fontFamily.className}`}>
         <NavigationBar />
         {children}
       </body>
