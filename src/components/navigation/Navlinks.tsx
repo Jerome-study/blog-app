@@ -8,7 +8,7 @@ import { DropDown } from "./Dropdown";
 import styles from './nav.module.css';
 
 
-export const Navlinks = ({ isAuthenticated } : { isAuthenticated : Boolean | any}) => {
+export const Navlinks = ({ isAuthenticated, username } : { isAuthenticated : Boolean | any, username: string | undefined}) => {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
     return(
@@ -23,10 +23,10 @@ export const Navlinks = ({ isAuthenticated } : { isAuthenticated : Boolean | any
                         <h1>
                             <Link onClick={() => setOpen(prev => !prev)} className={`${pathname === '/discover' ? 'underline' : 'hover:border-b'} text-white font-extralight text-xl`} href={"/discover"}>Discover</Link>
                         </h1>
-                        { isAuthenticated && 
-                            <DropDown />
+                        { (isAuthenticated && username) && 
+                            <DropDown username={username} />
                         }
-                       { !isAuthenticated && 
+                       { (!isAuthenticated && !username) && 
                             <>
                                  <h1>
                                     <Link onClick={() => setOpen(prev => !prev)} className={`${pathname === '/login' ? 'underline' : 'hover:border-b'} text-white font-extralight text-xl`} href={"/login"}>Login</Link>

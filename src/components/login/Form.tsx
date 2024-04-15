@@ -6,19 +6,21 @@ import { loginFormSchema } from "@/models/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { instance } from "@/libs/axios";
+import { useState } from "react";
 
 type Inputs = z.infer<typeof loginFormSchema>
 
 export const LoginForm = () => {
+    const [validate, setValidate] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(loginFormSchema)
     }); 
-
     const onSubmit:SubmitHandler<LoginValues> = async (data) => {
+        setValidate("");
         try {
             const response = await instance.post("/api/login", data);
             if (response.status === 203) {
-                console.log(response.data?.message);
+                setValidate(response.data?.message);
             } else {
                window.location.href = "/"
             }
@@ -36,6 +38,7 @@ export const LoginForm = () => {
                 </section>
                 <form onSubmit={handleSubmit(onSubmit)} className="px-3 grid gap-4 lg:border lg:py-10 rounded-3xl shadow">
                    <h1 className="font-black text-3xl text-teal-950 text-center mb-5 lg:text-5xl">Login</h1>
+                   { validate && <span className="text-red-600 font-normal">{validate}</span>}
                    <div>
                         <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
                         <input type="text" id="first_name" className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Username"  
@@ -51,7 +54,7 @@ export const LoginForm = () => {
                         { errors.password && <span className="text-red-600 font-normal">{errors.password.message}</span>}
                     </div>
                     <button className="font-black py-2 bg-amber-100 rounded-xl hover:bg-amber-200 ">Login</button>
-                    <span className="text-center mt-5">Don't have an account? <Link className="text-sky-600 hover:text-sky-900" href="/register">Register</Link></span>
+                    <span className="text-center">No account?<Link className="text-sky-600 hover:text-sky-900" href="/register">Register</Link></span>
                 </form>
             </main>
         </>

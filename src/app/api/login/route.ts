@@ -21,7 +21,7 @@ export async function POST(request : NextRequest) {
         // If username exist compare hashed password
         const isMatched = await bcrypt.compare(password, user.password);
         // If not matched return message
-        if (!isMatched) return NextResponse.json({ message: "Username or password is wrongg", isUsername: true }, { status: 203 });
+        if (!isMatched) return NextResponse.json({ message: "Username or password is wrong", isUsername: true }, { status: 203 });
         // If match create token
         const accessToken = signJwt(user.id)
         cookies().set({
@@ -33,7 +33,7 @@ export async function POST(request : NextRequest) {
             sameSite: 'none'
         })
         return NextResponse.json({ message: "Login" });
-    } catch(error) {
-
+    } catch(error : any) {
+       
     }
 }

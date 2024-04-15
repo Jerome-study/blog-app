@@ -9,8 +9,13 @@ const createUserTable = `CREATE TABLE IF NOT EXISTS users (
 
 const getUsername = `SELECT * FROM users WHERE username = $1`
 const registerUser = `INSERT INTO users (username, first_name, last_name, password) VALUES($1, $2, $3, $4)`;
-export default {
+const geUserDetails = `SELECT id, username, first_name, last_name, created_at FROM users WHERE id = $1`
+
+const queries = {
     createUserTable,
     getUsername,
-    registerUser
+    registerUser,
+    geUserDetails
 }
+
+export default queries
