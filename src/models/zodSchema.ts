@@ -1,3 +1,4 @@
+import { title } from "process";
 import { z } from "zod";
 
 export const registerFormSchema = z.object({
@@ -28,4 +29,14 @@ export const loginFormSchema = z.object({
     password: z.string({
         required_error: "This field is required"
     }).min(1, { message: "This field is required"})
+});
+
+
+export const blogSchema = z.object({
+    title: z.string({
+        required_error: "This field is required"
+    }).min(1, { message: "Please put a title"}),
+    description: z.string({
+        required_error: "This field is required"
+    }).min(1, { message: "Please put a description"})
 })

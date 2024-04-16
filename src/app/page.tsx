@@ -1,23 +1,13 @@
-import { Cards } from "@/components/home/blog-cards";
+import { HomeComponent } from "@/components/home/home";
+import { pool } from "@/libs/database";
+import queries from "@/libs/queries";
 
 export default async function Home() {
+  const response = await pool.query(queries.getLatestBlogs);
+  const latestBlogs = response.rows;
   return (
     <main className="py-5">
-      <section className="text-center px-3 lg:max-w-4xl lg:mx-auto">
-        <h1 className="font-black text-5xl text-teal-950 my-10 lg:text-7xl">The Blog App</h1>
-        <span className="text-zinc-500 text-xlfont-normal lg:text-3xl  ">A website that you can share your thoughts, opinion and no one even cares!</span>
-      </section>
-      <section className="py-10">
-        <div className="container px-3">
-          <h1 className="font-black text-3xl mb-7 lg:text-4xl">Latest Blogs</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            <Cards />
-            <Cards />
-            <Cards />
-            <Cards />
-          </div>
-        </div>
-      </section>
+      <HomeComponent latestBlogs={latestBlogs} />
     </main>
   );
 }

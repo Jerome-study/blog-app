@@ -8,11 +8,15 @@ export const DropDown = ({ username } : { username: string | undefined}) => {
     const logout = async () => {
         try {
             await instance.post("/api/logout");
-            router.refresh();
+            window.location.reload();
         } catch(error: any) {
             console.log(error?.response)
         }
     }
+
+    function onClick(destination: string) {
+        window.location.href = destination;
+      }
 
     return(
         <>
@@ -22,10 +26,13 @@ export const DropDown = ({ username } : { username: string | undefined}) => {
             </button>
             <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li>
+                    <li onClick={() => onClick("/blog/create")}>
+                        <p className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Create Blog</p>
+                    </li>
+                    <li onClick={() => onClick("/dashboard")}>
                         <p className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</p>
                     </li>
-                    <li>
+                    <li onClick={() => onClick("/settings")}>
                         <p className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</p>
                     </li>
                     <li onClick={logout}>

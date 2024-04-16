@@ -16,11 +16,15 @@ export const connectPostgres = async () => {
     try {
         await pool.connect();
         await pool.query(queries.createUserTable);
+        await pool.query(queries.createBlogTable);
         console.log("Connected to database");
     } catch(error : any ) {
         console.log(error?.message);
     }
 };
+
+
+
 
 
 
