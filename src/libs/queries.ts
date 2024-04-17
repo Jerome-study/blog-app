@@ -24,7 +24,8 @@ const registerUser = `INSERT INTO users (username, first_name, last_name, passwo
 const getUserDetails = `SELECT id, username, first_name, last_name, created_at FROM users WHERE id = $1`;
 const insertBlogs = `INSERT INTO blogs (title, description, image, user_id) VALUES ($1, $2, $3, $4) RETURNING id`;
 const getLatestBlogs = `SELECT * FROM blogs ORDER BY created_at DESC LIMIT 4`;
-
+const getUserBlogs = `SELECT * FROM blogs WHERE user_id = $1`;
+const getUserBlogsDesc = `SELECT * FROM blogs  WHERE user_id = $1 ORDER BY created_at DESC`;
 const queries = {
     createUserTable,
     createBlogTable,
@@ -32,7 +33,9 @@ const queries = {
     registerUser,
     getUserDetails,
     insertBlogs,
-    getLatestBlogs
+    getLatestBlogs,
+    getUserBlogs,
+    getUserBlogsDesc
 }
 
 export default queries

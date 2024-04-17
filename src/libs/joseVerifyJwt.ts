@@ -2,7 +2,7 @@ import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 
-export const verifyJwt = async () => {
+export const verifyJwtJose = async () => {
     const accessToken = cookies().get("jwt")?.value || "";
     if (!accessToken) return false;
     const key = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET);

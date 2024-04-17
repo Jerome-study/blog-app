@@ -7,7 +7,7 @@ export default async function Home() {
   const latestBlogs = response.rows;
   return (
     <main className="py-5">
-      <HomeComponent latestBlogs={latestBlogs} />
+      <HomeComponent latestBlogs={latestBlogs}  />
     </main>
   );
 }

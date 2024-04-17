@@ -1,7 +1,11 @@
+import { DashboardComponent } from "@/components/dashboard/dashboard";
+
 async function DashboardPage () {
     return(
         <>
-            <h1>Dashboard Page</h1>
+            <main className="py-5">
+                <DashboardComponent />
+            </main>
         </>
     )
 }

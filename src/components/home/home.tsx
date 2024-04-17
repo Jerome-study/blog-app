@@ -1,7 +1,8 @@
-import { Cards } from "./blog-cards"
-import { blogDetails } from "@/models/definition"
+import { blogDetails } from "@/models/definition";
+import { BlogCards } from "@/components/ui/blogCards";
 
-export const HomeComponent = ({ latestBlogs } : { latestBlogs: blogDetails[]}) => {
+export const HomeComponent = async ({ latestBlogs } : { latestBlogs: blogDetails[]}) => {
+    
     return(
         <>
             <section className="text-center px-3 lg:max-w-4xl lg:mx-auto">
@@ -10,16 +11,16 @@ export const HomeComponent = ({ latestBlogs } : { latestBlogs: blogDetails[]}) =
             </section>
             <section className="py-10">
                 <div className="container px-3">
-                <h1 className="font-black text-3xl mb-7 lg:text-4xl">Latest Blogs</h1>
-                { latestBlogs.length ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                    { latestBlogs.map(blog => {
-                        return(
-                            <Cards key={blog.id} blog={blog}/>
-                        )
-                    })}
-                </div> : 
-                    <p className="text-center text-3xl text-slate-600">No Blogs</p>
-                }
+                    <h1 className="font-black text-3xl mb-7 lg:text-4xl">Latest Blogs</h1>
+                    { latestBlogs.length ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                        { latestBlogs.map(blog => {
+                            return(
+                                <BlogCards key={blog.id} blog={blog} inDashboard={false} />
+                            )
+                        })}
+                    </div> : 
+                        <p className="text-center text-3xl text-slate-600">No Blogs</p>
+                    }
                 </div>
             </section>
         </>

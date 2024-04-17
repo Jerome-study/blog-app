@@ -41,3 +41,8 @@ export interface userDetails {
     last_name: string | null,
     created_at: Date
 }
+
+export interface DashBoardCardProps {
+    name: string,
+    totalCount: number
+}

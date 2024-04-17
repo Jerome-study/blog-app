@@ -23,8 +23,7 @@ export const CreateComponent = () => {
     const onSubmit:SubmitHandler<blogValues> = async (data) => {
         setValidate("");
         try {
-            const hasImage = file? true : false
-            console.log(selectedImage, file)
+            const hasImage = file? true : false;
             const response = await instance.post("/api/createBlog", {...data, hasImage });
             if (response.status === 203) return setValidate(response.data.message);
             if (file) {
