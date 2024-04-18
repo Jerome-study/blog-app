@@ -1,5 +1,5 @@
 import { blogDetails } from "@/models/definition";
-import { BlogCards } from "@/components/ui/blogCards";
+import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 
 export const HomeComponent = async ({ latestBlogs } : { latestBlogs: blogDetails[]}) => {
     
@@ -15,7 +15,7 @@ export const HomeComponent = async ({ latestBlogs } : { latestBlogs: blogDetails
                     { latestBlogs.length ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                         { latestBlogs.map(blog => {
                             return(
-                                <BlogCards key={blog.id} blog={blog} inDashboard={false} />
+                                <BlogCardContainer key={blog.id} blog={blog} inDashboard={false} />
                             )
                         })}
                     </div> : 

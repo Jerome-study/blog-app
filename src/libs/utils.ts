@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import { supabase } from "./supabase";
 
 export const signJwt = (id : string) => {
     return jwt.sign(
@@ -10,3 +10,6 @@ export const signJwt = (id : string) => {
 }
 
 
+export const getImage = async (hasImage : boolean, blog_id : string) => {
+    return hasImage? supabase.storage.from("image-blog").getPublicUrl(`${blog_id}`).data.publicUrl : "/image-sample.jpg";
+}

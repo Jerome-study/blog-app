@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Barlow } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { NavigationBar } from "@/components/navigation/Navigationbar";
 
-const fontFamily = Barlow({
+const fontFamily = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
 })

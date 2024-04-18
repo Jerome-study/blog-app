@@ -25,8 +25,12 @@ export async function middleware(request: NextRequest) {
         }
     }
 
+    if (routes("/blog/view")) {
+        return NextResponse.next();
+    }
+
     // If user is authenticated they can proceed to this pages otherwise send them to the login page
-    if (routes('/createBlog') || routes('/dashboard') || routes('/profile')) {
+    if (routes("/blog") || routes('/user')) {
         const isAuthenticated = await verifyJwtJose();
         if (isAuthenticated) {
             return NextResponse.next();

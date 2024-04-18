@@ -30,6 +30,7 @@ export interface blogDetails {
     title: string,
     description: string,
     likes: number,
+    slug: string,
     created_at: Date,
     user_id: string
 }
@@ -45,4 +46,11 @@ export interface userDetails {
 export interface DashBoardCardProps {
     name: string,
     totalCount: number
+}
+
+export interface BlogCardComponentProps {
+    image: string,
+    inDashboard?: boolean,
+    user: userDetails,
+    blog: blogDetails
 }

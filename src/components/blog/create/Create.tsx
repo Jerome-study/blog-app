@@ -26,13 +26,15 @@ export const CreateComponent = () => {
             const hasImage = file? true : false;
             const response = await instance.post("/api/createBlog", {...data, hasImage });
             if (response.status === 203) return setValidate(response.data.message);
+            const { blog_id } = response.data
             if (file) {
-                const result = await supabase.storage.from('image-blog').upload(`${response.data.blog_id}`, file);
+                const result = await supabase.storage.from('image-blog').upload(`${blog_id}`, file);
                 if (result.error) throw new Error("Something went wrong");
             }
-            window.location.href = "/dashboard";
+            window.location.href = "/user/dashboard";
         } catch(error : any) {
-            console.log(error);
+            if (error.response.status === 500) return console.log("Something went wrong to server");
+            console.log("Something went wrong to server")
         }
     }
 

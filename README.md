@@ -13,3 +13,6 @@ Practicing Next JS by building a Blog App
     <li>1 Picture per Blog</li>
     <li>1 Avatar per user</li>
 </ul>
+
+# Status
+Not Done

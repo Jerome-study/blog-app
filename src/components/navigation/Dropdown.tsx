@@ -26,10 +26,10 @@ export const DropDown = ({ username } : { username: string | undefined}) => {
             </button>
             <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li onClick={() => onClick("/createBlog")}>
+                    <li onClick={() => onClick("/blog/create")}>
                         <p className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Create Blog</p>
                     </li>
-                    <li onClick={() => onClick("/dashboard")}>
+                    <li onClick={() => onClick("/user/dashboard")}>
                         <p className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</p>
                     </li>
                     <li onClick={() => onClick("/settings")}>

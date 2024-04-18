@@ -1,10 +1,9 @@
 import { HomeComponent } from "@/components/home/home";
-import { pool } from "@/libs/database";
-import queries from "@/libs/queries";
+import { instance } from "@/libs/axios";
 
 export default async function Home() {
-  const response = await pool.query(queries.getLatestBlogs);
-  const latestBlogs = response.rows;
+  const response = await instance.get("/api/latestBlogs");
+  const { latestBlogs } = response.data;
   return (
     <main className="py-5">
       <HomeComponent latestBlogs={latestBlogs}  />

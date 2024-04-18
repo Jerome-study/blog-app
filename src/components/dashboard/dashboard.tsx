@@ -4,7 +4,7 @@ import { pool } from "@/libs/database";
 import queries from "@/libs/queries";
 import { DashboardCard } from "./dashBoardCard";
 import { DashBoardCardProps, blogDetails } from "@/models/definition";
-import { BlogCards } from "../ui/blogCards";
+import { BlogCardContainer } from "../ui/BlogCardContainer";
 
 export const DashboardComponent = async () => {
     const accessToken = cookies().get('jwt')?.value || "" ;
@@ -47,7 +47,7 @@ export const DashboardComponent = async () => {
                 <div className="flex flex-shrink-0 gap-4 overflow-auto md:grid md:grid-cols-3 lg:grid-cols-4">
                     {blogList.map((blog : blogDetails) => {
                         return(
-                            <BlogCards key={blog.id} blog={blog} inDashboard={true}  />
+                            <BlogCardContainer key={blog.id} blog={blog} inDashboard={true}  />
                         )
                     })}
                 </div>
