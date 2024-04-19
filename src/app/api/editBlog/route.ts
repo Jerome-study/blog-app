@@ -21,20 +21,18 @@ export async function POST(request : NextRequest) {
             return decoded
         })
         // Get the data from the client
-        const { title, description, hasImage, file } = await request.json();
+        const { title, description, hasImage, blog_slug } = await request.json();
         // If one of the data is null return
-        if (!title || !description ) return NextResponse.json({ message: "All fields are required" }, { status : 203 });
-        // Create slug
-        let title_slug = slugify(title);
-        // Check if Slug exist in database
-        const isTitleFound = (await pool.query(queries.isTitleFound, [title])).rowCount;
-        console.log(isTitleFound)
-        // If slug exist change it
-        title_slug = isTitleFound? title_slug + `-${isTitleFound}` : title_slug;
-        // Insert data from database
-        const result = await pool.query(queries.insertBlogs, [title, description, hasImage, title_slug, user_id ]);
-        const blog_id = result.rows[0].id;
-        return NextResponse.json({ blog_id });
+        if (!title || !description || !blog_slug ) return NextResponse.json({ message: "All fields are required" }, { status : 203 });
+        // Get the details of blog
+        const blog = await (await pool.query(queries.getBlogDetails, [blog_slug])).rows[0];
+        // If title is the same as before just use the current slug otherwise change it
+        let slug = title === blog.title ? blog_slug : slugify(title);
+        // 
+        const isSlugFound : any = title === blog.title? false : (await pool.query(queries.isTitleFound, [title])).rowCount;
+        slug = isSlugFound ? slug + `-${isSlugFound}` : slug;
+        await pool.query(queries.editBlog, [title, description, hasImage, slug, blog.id, user_id]);
+        return NextResponse.json({ success: true });
     } catch(error : any) {
        console.log(error?.message);
     }

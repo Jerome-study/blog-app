@@ -20,28 +20,30 @@ const createBlogTable = `CREATE TABLE IF NOT EXISTS blogs (
     FOREIGN KEY (user_id) REFERENCES users(id)
 )`;
 
-
 const getUsername = `SELECT * FROM users WHERE username = $1`;
 const registerUser = `INSERT INTO users (username, first_name, last_name, password) VALUES($1, $2, $3, $4)`;
 const getUserDetails = `SELECT id, username, first_name, last_name, created_at FROM users WHERE id = $1`;
-const isSlugFound = `SELECT slug FROM blogs WHERE slug = $1`;
+const isTitleFound = `SELECT * FROM blogs WHERE title = $1`;
 const insertBlogs = `INSERT INTO blogs (title, description, image, slug,  user_id) VALUES ($1, $2, $3, $4, $5) RETURNING id`;
 const getLatestBlogs = `SELECT * FROM blogs ORDER BY created_at DESC LIMIT 4`;
-const getUserBlogs = `SELECT * FROM blogs WHERE user_id = $1`;
 const getUserBlogsDesc = `SELECT * FROM blogs  WHERE user_id = $1 ORDER BY created_at DESC`;
 const getBlogDetails = `SELECT * FROM blogs WHERE slug = $1`;
+const isBlogExistFromUser = `SELECT * FROM blogs WHERE slug = $1 AND user_id = $2`;
+const editBlog = `UPDATE blogs SET title =$1, description = $2, image = $3, slug = $4 WHERE id = $5 AND user_id = $6`;
+
 const queries = {
+    getUsername,
     createUserTable,
     createBlogTable,
-    getUsername,
     registerUser,
     getUserDetails,
-    isSlugFound,
+    isTitleFound,
     insertBlogs,
     getLatestBlogs,
-    getUserBlogs,
     getUserBlogsDesc,
-    getBlogDetails
+    getBlogDetails,
+    isBlogExistFromUser,
+    editBlog
 }
 
 export default queries

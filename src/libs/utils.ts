@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import { supabase } from "./supabase";
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export const signJwt = (id : string) => {
     return jwt.sign(
         { id },
@@ -11,5 +14,5 @@ export const signJwt = (id : string) => {
 
 
 export const getImage = async (hasImage : boolean, blog_id : string) => {
-    return hasImage? supabase.storage.from("image-blog").getPublicUrl(`${blog_id}`).data.publicUrl : "/image-sample.jpg";
+    return hasImage? `${supabase.storage.from("image-blog").getPublicUrl(`${blog_id}`).data.publicUrl}?bust=${Date.now()}` : "/image-sample.jpg";
 }

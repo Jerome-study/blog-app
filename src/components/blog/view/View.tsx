@@ -1,6 +1,7 @@
 import { blogDetails } from "@/models/definition"
-import { supabase } from "@/libs/supabase";
 import { getImage } from "@/libs/utils";
+
+export const revalidate = 0;
 
 export const ViewComponent = async ({ blog } : {blog : blogDetails}) => {
     const image = await getImage(blog.image, blog.id);
