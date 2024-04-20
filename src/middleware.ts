@@ -15,6 +15,17 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next();
         }
     }
+
+    // If user is not Authenticated and wants to create or edit a blog (Route Handler)
+    if (routes('/api/createBlog') || routes('/api/editBlog') || routes('/api/deleteBlog') ) {
+        const isAuthenticated = await verifyJwtJose();
+        if (isAuthenticated) {
+            return NextResponse.next();
+        } else {
+            return NextResponse.json({ message: "You are not authenticated" }, { status: 401 });
+        }
+    }
+
     // If user is Authenticated and wants to login again (Page).
     if (routes('/login') || routes('/register') ) {
         const isAuthenticated = await verifyJwtJose();
@@ -23,7 +34,7 @@ export async function middleware(request: NextRequest) {
         } else {
             return NextResponse.next();
         }
-    }
+    } 
 
     if (routes("/blog/view")) {
         return NextResponse.next();
@@ -38,11 +49,6 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/login', request.url))
         }
     }
-
-    
-    
-
-
 
 }
  

@@ -52,5 +52,5 @@ export interface BlogCardComponentProps {
     image: string,
     inDashboard?: boolean,
     user: userDetails,
-    blog: blogDetails
+    blog: blogDetails,
 }

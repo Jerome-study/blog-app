@@ -8,7 +8,7 @@ import { getImage } from "@/libs/utils";
 async function EditPage({ params } : { params : { slug : string } }) {
     const { slug } = params
     const user: any  = await verifyJwt(); // Verify User
-    if (!user) return redirect("/login"); // If no token or invalid token 
+    if (user === 401 || user === 403 ) return redirect("/login"); // If no token or invalid token 
 
     const blog: blogDetails  = await isBlogExistFromUser(slug, user.id); // Check if the blog is exist from the user
 

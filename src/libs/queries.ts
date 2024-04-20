@@ -30,6 +30,7 @@ const getUserBlogsDesc = `SELECT * FROM blogs  WHERE user_id = $1 ORDER BY creat
 const getBlogDetails = `SELECT * FROM blogs WHERE slug = $1`;
 const isBlogExistFromUser = `SELECT * FROM blogs WHERE slug = $1 AND user_id = $2`;
 const editBlog = `UPDATE blogs SET title =$1, description = $2, image = $3, slug = $4 WHERE id = $5 AND user_id = $6`;
+const deleteBlog = `DELETE FROM blogs WHERE id = $1 AND user_id = $2`;
 
 const queries = {
     getUsername,
@@ -43,7 +44,8 @@ const queries = {
     getUserBlogsDesc,
     getBlogDetails,
     isBlogExistFromUser,
-    editBlog
+    editBlog,
+    deleteBlog
 }
 
 export default queries

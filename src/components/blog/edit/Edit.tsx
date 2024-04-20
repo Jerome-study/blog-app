@@ -43,7 +43,8 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
             window.location.href = "/user/dashboard";
 
         } catch(error : any) {
-            console.log(error)
+            console.log(error?.response?.data?.message);
+            window.location.href = "/Error"
         }
     }
     

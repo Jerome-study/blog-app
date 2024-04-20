@@ -1,22 +1,20 @@
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
-import { pool } from "@/libs/database";
-import queries from "@/libs/queries";
 import { DashboardCard } from "./dashBoardCard";
 import { DashBoardCardProps, blogDetails } from "@/models/definition";
 import { BlogCardContainer } from "../ui/BlogCardContainer";
+import { verifyJwt } from "@/libs/jwtVerify";
+import { redirect } from "next/navigation";
+import { instance } from "@/libs/axios";
+
+export const revalidate = 0;
 
 export const DashboardComponent = async () => {
-    const accessToken = cookies().get('jwt')?.value || "" ;
-    const decoded : any = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET || "", (err,decoded) => {
-        if (err) return false
-        return decoded;
-    });
+    const decoded : any = await verifyJwt();
+    if (decoded === 401 || decoded === 403 ) return redirect("/login"); // If no token or invalid token 
     const user_id = decoded.id;
-    const data = await pool.query(queries.getUserBlogsDesc, [user_id]);
-    const totalBlog = data.rowCount;
-    const blogList = data.rows;
-    const totalLikes = await blogList.reduce((total, blog) => total + Number(blog.likes) , 0)
+    const response = await instance.get("/api/getUserBlogs", { params : { user_id }})
+    const totalBlog = response.data.blog.rowCount;
+    const blogList = response.data.blog.rows;
+    const totalLikes = await blogList.reduce((total : number, blog : blogDetails) => total + Number(blog.likes) , 0)
     const dashboardCards = [
         {
             name: "Total Blogs",

@@ -34,7 +34,7 @@ export const CreateComponent = () => {
             window.location.href = "/user/dashboard";
         } catch(error : any) {
             if (error.response.status === 500) return console.log("Something went wrong to server");
-            console.log("Something went wrong to server")
+            console.log(error?.response?.data?.message);
         }
     }
 
