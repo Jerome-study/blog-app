@@ -9,10 +9,12 @@ import { useState } from "react";
 import { EditImageField } from "./ImageField";
 import { instance } from "@/libs/axios";
 import { supabase } from "@/libs/supabase";
+import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof blogSchema>
 
 export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, image: string}) => {
+    const router = useRouter();
     const [currentImage, setCurrentImage] = useState(blog.image ? image : null)
     const [file, setFile] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -20,6 +22,7 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
         resolver: zodResolver(blogSchema)
     })
     const onSubmit:SubmitHandler<any> = async (data) => {
+        if (data.title === blog.title && blog.description === data.description && currentImage !== null) return router.push("/user/dashboard");
         try {
             const hasImage = currentImage || file ? true : false;
             const response = await instance.post("/api/editBlog", { ...data, hasImage, blog_slug : blog.slug});
@@ -28,14 +31,11 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
             if (file && !blog.image) {
                 const result = await supabase.storage.from('image-blog').upload(`${blog.id}`, file);
                 if (result.error) throw new Error("Something went wrong upload");
-            }
-
-            if (file && blog.image) {
+            } else if (file && blog.image) {
                 const result = await supabase.storage.from('image-blog').update(`${blog.id}`, file);
                 if (result.error) throw new Error("Something went wrong");
-            }
-
-            if (!file) {
+            } else if (!file && !currentImage) {
+                console.log("delete image")
                 const result = await supabase.storage.from('image-blog').remove([`${blog.id}`]);
                 if (result.error) throw new Error("Something went wrong");
             }

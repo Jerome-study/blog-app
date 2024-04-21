@@ -14,15 +14,21 @@ export const DashboardComponent = async () => {
     const response = await instance.get("/api/getUserBlogs", { params : { user_id }})
     const totalBlog = response.data.blog.rowCount;
     const blogList = response.data.blog.rows;
-    const totalLikes = await blogList.reduce((total : number, blog : blogDetails) => total + Number(blog.likes) , 0)
+    const totalLikes = response.data.totalLikes;
+    const totalLiked = response.data.totalLiked;
     const dashboardCards = [
         {
-            name: "Total Blogs",
+            name: "Blogs",
             totalCount: totalBlog,
         },
         {
-            name: "Total Likes",
+            name: " Blogs Likes",
             totalCount: totalLikes
+        },
+        {
+            name: "Blogs Liked",
+            totalCount: totalLiked
+
         }
     ]
     return(
@@ -30,7 +36,7 @@ export const DashboardComponent = async () => {
             <section className="container px-3">
                 <h1 className="text-4xl font-light text-center">Dashboard</h1>
 
-                <div className="grid grid-cols-2 gap-5 mt-12 max-w-screen-sm mx-auto">
+                <div className="grid sm:grid-cols-3 gap-5 mt-12 max-w-screen-xl mx-auto">
                     {dashboardCards.map((dashBoardCard : DashBoardCardProps) => {
                         return(
                             <DashboardCard key={dashBoardCard.name} dashBoardCard={dashBoardCard} />
