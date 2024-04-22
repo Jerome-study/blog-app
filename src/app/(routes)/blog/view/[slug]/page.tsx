@@ -1,20 +1,17 @@
-import { pool } from "@/libs/database";
-import queries from "@/libs/queries";
 import { redirect } from "next/navigation";
 import { ViewComponent } from "@/components/blog/view/View";
+import { instance } from "@/libs/axios";
 
 async function ViewBlogPage({ params } : { params: { slug : string}}) {
     const { slug } = params;
-    const data = await pool.query(queries.getBlogDetails, [slug]);
-
-    if (!data.rowCount) return redirect("/");
-
-    const blog = data.rows[0];
-
+    const response = await instance.get("/api/getBlog", { params : { slug }});
+    if (response.status === 203) return redirect("/Error");
+    const { blog, totalLikes } = response?.data;
+    
     return(
         <>
             <main className="py-6 px-3">
-                <ViewComponent blog={blog} />
+                <ViewComponent blog={blog} totalLikes={totalLikes} />
             </main>
         </>
     )

@@ -1,13 +1,19 @@
 import { blogDetails } from "@/models/definition"
 import { getImage } from "@/libs/utils";
 import Image from "next/image";
+import { LikeComponent } from "./Like";
+import { verifyJwt } from "@/libs/jwtVerify";
+import { instance } from "@/libs/axios";
 
 export const revalidate = 0;
 
-export const ViewComponent = async ({ blog } : {blog : blogDetails}) => {
+export const ViewComponent = async ({ blog, totalLikes } : {blog : blogDetails, totalLikes : number }) => {
     const image = await getImage(blog.image, blog.id);
-    const date = blog.created_at.toDateString();
-    const time = blog.created_at.toLocaleTimeString();
+    const date = new Date(blog?.created_at)?.toDateString();
+    const time = new Date(blog?.created_at)?.toLocaleTimeString();
+    const user: any  = await verifyJwt();
+    const isLike = user === 403 || user === 401 ? false : (await instance.get("/api/isLike", { params : { liker_id : user.id, blog_id: blog.id }}))?.data?.result;
+    
     return(
         <>
             <section className="container max-w-screen-md">
@@ -21,6 +27,9 @@ export const ViewComponent = async ({ blog } : {blog : blogDetails}) => {
                 <div>
                     <p className="text-md md:text-xl italic break-words">{blog.description}</p>
                 </div>
+            </section>
+            <section className="container max-w-screen-md mt-3">
+                <LikeComponent owner_id={blog.user_id} blog_id={blog.id} totalLikes={totalLikes} isLike={isLike}/>
             </section>
         </>
     )

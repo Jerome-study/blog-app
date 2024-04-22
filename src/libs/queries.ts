@@ -42,6 +42,9 @@ const deleteBlog = `DELETE FROM blogs WHERE id = $1 AND user_id = $2`;
 const getBlogLikes = `SELECT * FROM likes WHERE blog_id = $1`;
 const getUserBlogTotalLikes = `SELECT * FROM likes WHERE owner_id = $1`;
 const getUserBlogTotalLiked = ` SELECT * FROM likes WHERE liker_id = $1`;
+const likeBlog = `INSERT INTO likes (blog_id, owner_id, liker_id) VALUES($1, $2, $3)`;
+const unLikeBlog = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2 AND liker_id = $3`;
+const isLike = `SELECT * FROM likes WHERE blog_id =$1 AND liker_id = $2`;
 
 const queries = {
     getUsername,
@@ -61,6 +64,9 @@ const queries = {
     getBlogLikes,
     getUserBlogTotalLikes,
     getUserBlogTotalLiked,
+    likeBlog,
+    unLikeBlog,
+    isLike
 }
 
 export default queries

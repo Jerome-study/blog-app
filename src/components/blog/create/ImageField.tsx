@@ -15,7 +15,7 @@ export const ImageField = ({ setFile, selectedImage, setSelectedImage } : imageF
     return(
         <>
              <div className={`${selectedImage && "hidden"} border-4 relative rounded-2xl`}>
-                <input type="file" onChange={(e : any) => insertImage(e)}  className="cursor-pointer relative block opacity-0 w-full h-full p-20 z-50" />
+                <input type="file" onChange={(e : any) => insertImage(e)}  className="cursor-pointer relative block opacity-0 w-full h-full p-20 z-10" />
                 <div className="text-center p-10 absolute top-0 right-0 left-0 m-auto">
                     <h1 className="text-4xl text-slate-700 font-black">{selectedImage ? "Replace Image" : "Upload Image"}</h1>
                  </div>
