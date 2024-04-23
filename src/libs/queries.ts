@@ -39,6 +39,7 @@ const getBlogDetails = `SELECT * FROM blogs WHERE slug = $1`;
 const isBlogExistFromUser = `SELECT * FROM blogs WHERE slug = $1 AND user_id = $2`;
 const editBlog = `UPDATE blogs SET title =$1, description = $2, image = $3, slug = $4 WHERE id = $5 AND user_id = $6`;
 const deleteBlog = `DELETE FROM blogs WHERE id = $1 AND user_id = $2`;
+const deleteBlogLike = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2`;
 const getBlogLikes = `SELECT * FROM likes WHERE blog_id = $1`;
 const getUserBlogTotalLikes = `SELECT * FROM likes WHERE owner_id = $1`;
 const getUserBlogTotalLiked = ` SELECT * FROM likes WHERE liker_id = $1`;
@@ -61,6 +62,7 @@ const queries = {
     isBlogExistFromUser,
     editBlog,
     deleteBlog,
+    deleteBlogLike,
     getBlogLikes,
     getUserBlogTotalLikes,
     getUserBlogTotalLiked,

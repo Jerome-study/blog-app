@@ -36,7 +36,7 @@ export const DashboardComponent = async () => {
             <section className="container px-3">
                 <h1 className="text-4xl font-light text-center">Dashboard</h1>
 
-                <div className="grid sm:grid-cols-3 gap-5 mt-12 max-w-screen-xl mx-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-12 max-w-screen-xl mx-auto">
                     {dashboardCards.map((dashBoardCard : DashBoardCardProps) => {
                         return(
                             <DashboardCard key={dashBoardCard.name} dashBoardCard={dashBoardCard} />
@@ -48,13 +48,17 @@ export const DashboardComponent = async () => {
             <section className="container px-3 mt-12">
                 <h1 className="text-4xl font-light">Your Blogs</h1>
 
-                <div className="flex flex-shrink-0 gap-4 overflow-auto md:grid md:grid-cols-3 lg:grid-cols-4">
-                    {blogList.map((blog : blogDetails) => {
-                        return(
-                            <BlogCardContainer key={blog.id} blog={blog} inDashboard={true}  />
-                        )
-                    })}
-                </div>
+                { blogList.length > 0 && 
+                    <div className="flex flex-shrink-0 gap-4 overflow-auto md:grid md:grid-cols-3 lg:grid-cols-4">
+                        {blogList.map((blog : blogDetails) => {
+                            return(
+                                <BlogCardContainer key={blog.id} blog={blog} inDashboard={true}  />
+                            )
+                        })}
+                    </div>
+                }
+
+                { !blogList.length && <p className="text-lg text-slate-500 mt-10 text-center font-black">No blogs</p> }
             </section>
         </>
     )

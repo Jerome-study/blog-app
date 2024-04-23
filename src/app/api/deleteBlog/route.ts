@@ -11,6 +11,7 @@ export async function POST(request : NextRequest) {
         const { blog_slug, user_id, blog_id } = await request.json();
         const isFound = await isBlogExistFromUser(blog_slug, user_id);
         if (!isFound) return NextResponse.json({ message: "This is not your blog" } , { status: 404 });
+        await pool.query(queries.deleteBlogLike, [blog_id, user_id]);
         await pool.query(queries.deleteBlog, [blog_id, user_id]);
         return NextResponse.json({ success: true });
     } catch(error : any) {

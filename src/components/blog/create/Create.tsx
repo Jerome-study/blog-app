@@ -9,37 +9,50 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { blogValues } from "@/models/definition";
 import { supabase } from "@/libs/supabase";
 import Link from "next/link";
+import { Modal } from "@/components/ui/Modal";
 
 type Inputs = z.infer<typeof blogSchema>
 
 export const CreateComponent = () => {
+    const [showModal, setShowModal] = useState(false);
     const [validate, setValidate] = useState<string>("");
     const [file, setFile] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(blogSchema)
     });
+    const message = {
+        message: "Do you want to create this blog",
+        title: ""
+    }
 
     const onSubmit:SubmitHandler<blogValues> = async (data) => {
         setValidate("");
-        try {
-            const hasImage = file? true : false;
-            const response = await instance.post("/api/createBlog", {...data, hasImage });
-            if (response.status === 203) return setValidate(response.data.message);
-            const { blog_id } = response.data
-            if (file) {
-                const result = await supabase.storage.from('image-blog').upload(`${blog_id}`, file);
-                if (result.error) throw new Error("Something went wrong");
+        if (!showModal) setShowModal(prev => !prev);
+        if (showModal === true) {
+            try {
+                const hasImage = file? true : false;
+                const response = await instance.post("/api/createBlog", {...data, hasImage });
+                if (response.status === 203) return setValidate(response.data.message);
+                const { blog_id } = response.data
+                if (file) {
+                    const result = await supabase.storage.from('image-blog').upload(`${blog_id}`, file);
+                    if (result.error) throw new Error("Something went wrong");
+                }
+                window.location.href = "/user/dashboard";
+            } catch(error : any) {
+                if (error.response.status === 500) return console.log("Something went wrong to server");
+                console.log(error?.response?.data?.message);
+            } finally {
+                setShowModal(prev => !prev)
             }
-            window.location.href = "/user/dashboard";
-        } catch(error : any) {
-            if (error.response.status === 500) return console.log("Something went wrong to server");
-            console.log(error?.response?.data?.message);
+            
         }
     }
 
     return(
         <>
+            { showModal && <Modal message={message} setState={setShowModal} handleClick={handleSubmit(onSubmit)} />}
             <section className="mt-12 container">
                 <h1 className="w-full py-5 text-5xl container text-center">New Blog</h1>
                 { validate && <span className="text-red-600 font-normal">{validate}</span>}

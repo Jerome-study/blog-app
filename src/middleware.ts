@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // If user is not Authenticated and wants to create or edit a blog (Route Handler)
-    if (routes('/api/createBlog') || routes('/api/editBlog') || routes('/api/deleteBlog') ) {
+    if (routes('/api/createBlog') || routes('/api/editBlog') || routes('/api/deleteBlog') || routes('/api/likeBlog') ) {
         const isAuthenticated = await verifyJwtJose();
         if (isAuthenticated) {
             return NextResponse.next();

@@ -5,9 +5,16 @@ import { useRouter } from "next/navigation";
 import { instance } from "@/libs/axios";
 import { PiHandsClappingThin } from "react-icons/pi";
 import { LiaCommentsSolid } from "react-icons/lia";
+import { Modal } from "./Modal";
+import { useEffect, useState } from "react";
 
 export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentProps) => {
+    const [showModal, setShowModal] = useState(false);
     const router = useRouter();
+    const message = {
+        title: blog.title,
+        message: "Do you want to delete"
+    }
     const deleteBlog = async () => {
         try {
           if (blog.user_id !== user.id) throw new Error();
@@ -23,11 +30,18 @@ export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentP
           router.refresh();
         } catch(error : any) {
             router.push("/Error");
+        } finally {
+            setShowModal(prev => !prev)
         }
       }
     
+    useEffect(() => {
+        document.body.style.overflow = showModal ? "hidden" : ""
+    }, [showModal])
+
     return(
         <>
+            { showModal && <Modal setState={setShowModal} message={message} handleClick={deleteBlog}/> }
             <div className=" shrink-0 w-72 md:w-full border shadow rounded-md my-4 shadow mx-auto">
                 <div onClick={() => window.location.href=`/blog/view/${blog.slug}`} className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
 
@@ -60,7 +74,7 @@ export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentP
                             :
                             <div className="flex gap-4 mt-5 justify-center">
                                 <button onClick={() => window.location.href=`/blog/edit/${blog.slug}`} className="bg-amber-100 rounded-xl py-2 font-black w-full">Edit</button>
-                                <button onClick={deleteBlog} className="bg-rose-800 rounded-xl py-2 text-white font-black w-full">Delete</button>
+                                <button onClick={() => setShowModal(prev => !prev)} className="bg-rose-800 rounded-xl py-2 text-white font-black w-full">Delete</button>
                             </div>
                         }
                 </div>

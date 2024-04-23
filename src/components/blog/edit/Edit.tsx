@@ -10,11 +10,17 @@ import { EditImageField } from "./ImageField";
 import { instance } from "@/libs/axios";
 import { supabase } from "@/libs/supabase";
 import { useRouter } from "next/navigation";
+import { Modal } from "@/components/ui/Modal";
 
 type Inputs = z.infer<typeof blogSchema>
 
 export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, image: string}) => {
+    const message = {
+        title: blog.title,
+        message: "Do you want to edit"
+    }
     const router = useRouter();
+    const [showModal, setShowModal] = useState(false);
     const [currentImage, setCurrentImage] = useState(blog.image ? image : null)
     const [file, setFile] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -23,6 +29,8 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
     })
     const onSubmit:SubmitHandler<any> = async (data) => {
         if (data.title === blog.title && blog.description === data.description && currentImage !== null) return router.push("/user/dashboard");
+        if (!showModal) setShowModal(prev => !prev);
+        if (!showModal) return;
         try {
             const hasImage = currentImage || file ? true : false;
             const response = await instance.post("/api/editBlog", { ...data, hasImage, blog_slug : blog.slug});
@@ -45,11 +53,14 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
         } catch(error : any) {
             console.log(error?.response?.data?.message);
             window.location.href = "/Error"
+        } finally {
+            setShowModal(prev => !prev)
         }
     }
     
     return(
         <>
+            { showModal && <Modal message={message} setState={setShowModal} handleClick={handleSubmit(onSubmit)} />}
             <section className="mt-12 container">
                 <h1 className="w-full py-5 text-5xl container text-center">Edit Blog</h1>
             </section>

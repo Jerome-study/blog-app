@@ -24,13 +24,11 @@ export async function POST(request : NextRequest) {
         if (!isMatched) return NextResponse.json({ message: "Username or password is wrong", isUsername: true }, { status: 203 });
         // If match create token
         const accessToken = signJwt(user.id)
-        cookies().set({
-            name: "jwt",
-            value: accessToken,
+        cookies().set("jwt", accessToken,{
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
             secure: process.env.NODE_ENV !== "development",
-            sameSite: 'none'
+            sameSite: 'lax'
         })
         return NextResponse.json({ message: "Login" });
     } catch(error : any) {
