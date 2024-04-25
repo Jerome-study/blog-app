@@ -25,5 +25,6 @@ Practicing Next JS by building a Blog App
 <img width="450" height="200" src="https://github.com/Jerome-study/blog-app/assets/119875460/c6d65ebe-c7e1-43a1-a6c7-62f4dcb4b03f" style="vertical-align: top;" />
 <img width="450" height="200" src="https://github.com/Jerome-study/blog-app/assets/119875460/fd5bc994-4ab7-4755-b6e8-2ec6f5d7eb90" style="vertical-align: top;" />
 <img width="450" height="200" src="https://github.com/Jerome-study/blog-app/assets/119875460/633e530b-1d91-4bd1-94dc-be3223700e56" style="vertical-align: top;" />
+<img width="450" height="200" src="https://github.com/Jerome-study/blog-app/assets/119875460/f87d25b0-ff60-4b12-b9ab-22cb55323d02" style="vertical-align: top;" />
   </div>
 </div>
