@@ -54,3 +54,11 @@ export interface BlogCardComponentProps {
     user: userDetails,
     blog: blogDetails,
 }
+
+export interface BlogCommentsProps {
+    id: string,
+    comment: string,
+    blog_id: string,
+    owner_id: string,
+    commener_id: string
+}

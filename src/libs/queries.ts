@@ -27,6 +27,15 @@ const createLikeTable = `CREATE TABLE IF NOT EXISTS likes (
     FOREIGN KEY (blog_id) REFERENCES blogs(id)
 )`;
 
+const createCommentTable = `CREATE TABLE IF NOT EXISTS comments (
+    id uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
+    comment TEXT NOT NULL,
+    blog_id uuid NOT NULL,
+    owner_id uuid NOT NULL,
+    commenter_id uuid NOT NULL,
+    FOREIGN KEY (blog_id) REFERENCES blogs(id)
+)`;
+
 
 const getUsername = `SELECT * FROM users WHERE username = $1`;
 const registerUser = `INSERT INTO users (username, first_name, last_name, password) VALUES($1, $2, $3, $4)`;
@@ -41,17 +50,20 @@ const editBlog = `UPDATE blogs SET title =$1, description = $2, image = $3, slug
 const deleteBlog = `DELETE FROM blogs WHERE id = $1 AND user_id = $2`;
 const deleteBlogLike = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2`;
 const getBlogLikes = `SELECT * FROM likes WHERE blog_id = $1`;
+const getBlogComment = `SELECT * FROM comments WHERE blog_id = $1`;
 const getUserBlogTotalLikes = `SELECT * FROM likes WHERE owner_id = $1`;
 const getUserBlogTotalLiked = ` SELECT * FROM likes WHERE liker_id = $1`;
 const likeBlog = `INSERT INTO likes (blog_id, owner_id, liker_id) VALUES($1, $2, $3)`;
 const unLikeBlog = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2 AND liker_id = $3`;
 const isLike = `SELECT * FROM likes WHERE blog_id =$1 AND liker_id = $2`;
+const postComment = `INSERT INTO comments (blog_id, owner_id, commenter_id, comment) VALUES($1, $2, $3, $4)`
 
 const queries = {
     getUsername,
     createUserTable,
     createBlogTable,
     createLikeTable,
+    createCommentTable,
     registerUser,
     getUserDetails,
     isTitleFound,
@@ -64,11 +76,13 @@ const queries = {
     deleteBlog,
     deleteBlogLike,
     getBlogLikes,
+    getBlogComment,
     getUserBlogTotalLikes,
     getUserBlogTotalLiked,
     likeBlog,
     unLikeBlog,
-    isLike
+    isLike,
+    postComment
 }
 
 export default queries

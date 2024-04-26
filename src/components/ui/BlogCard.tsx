@@ -18,7 +18,7 @@ export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentP
     const deleteBlog = async () => {
         try {
           if (blog.user_id !== user.id) throw new Error();
-          await instance.post("/api/deleteBlog", {
+          await instance.post("/api/blog/deleteBlog", {
             blog_slug : blog.slug,
             blog_id : blog.id,
             user_id : user.id

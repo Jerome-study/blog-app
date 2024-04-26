@@ -33,7 +33,7 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
         if (!showModal) return;
         try {
             const hasImage = currentImage || file ? true : false;
-            const response = await instance.post("/api/editBlog", { ...data, hasImage, blog_slug : blog.slug});
+            const response = await instance.post("/api/blog/editBlog", { ...data, hasImage, blog_slug : blog.slug});
             if (response.status === 203) return console.log(response.data.message);
     
             if (file && !blog.image) {

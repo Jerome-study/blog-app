@@ -32,7 +32,7 @@ export const CreateComponent = () => {
         if (showModal === true) {
             try {
                 const hasImage = file? true : false;
-                const response = await instance.post("/api/createBlog", {...data, hasImage });
+                const response = await instance.post("/api/blog/createBlog", {...data, hasImage });
                 if (response.status === 203) return setValidate(response.data.message);
                 const { blog_id } = response.data
                 if (file) {

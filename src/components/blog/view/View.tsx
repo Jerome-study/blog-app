@@ -4,10 +4,10 @@ import Image from "next/image";
 import { LikeComponent } from "./Like";
 import { verifyJwt } from "@/libs/jwtVerify";
 import { instance } from "@/libs/axios";
+import { CommentComponent } from "./comment";
+import { BlogCommentsProps } from "@/models/definition";
 
-export const revalidate = 0;
-
-export const ViewComponent = async ({ blog, totalLikes } : {blog : blogDetails, totalLikes : number }) => {
+export const ViewComponent = async ({ blog, totalLikes, blogComments, blogTotalComments } : {blog : blogDetails, totalLikes : number, blogComments: BlogCommentsProps[], blogTotalComments: number }) => {
     const image = await getImage(blog.image, blog.id);
     const date = new Date(blog?.created_at)?.toDateString();
     const time = new Date(blog?.created_at)?.toLocaleTimeString();
@@ -28,8 +28,9 @@ export const ViewComponent = async ({ blog, totalLikes } : {blog : blogDetails, 
                     <p className="text-md md:text-xl italic break-words">{blog.description}</p>
                 </div>
             </section>
-            <section className="container max-w-screen-md mt-3">
+            <section className="container max-w-screen-md mt-3 flex gap-4">
                 <LikeComponent owner_id={blog.user_id} blog_id={blog.id} totalLikes={totalLikes} isLike={isLike}/>
+                <CommentComponent blog={blog} blogTotalComments={blogTotalComments} blogComments={blogComments}/>
             </section>
         </>
     )

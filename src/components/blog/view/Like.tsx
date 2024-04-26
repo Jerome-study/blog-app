@@ -1,6 +1,5 @@
 "use client"
 import { PiHandsClappingThin } from "react-icons/pi";
-import { LiaCommentsSolid } from "react-icons/lia";
 import { useState } from "react";
 import { instance } from "@/libs/axios";
 
@@ -9,7 +8,7 @@ export const LikeComponent = ({ totalLikes, owner_id, blog_id, isLike  } : { tot
     const [like, setLike] = useState(isLike || false);
     const handleClick = async () => {
         try {
-            await instance.post("/api/likeBlog", { owner_id, blog_id, like });
+            await instance.post("/api/blog/likeBlog", { owner_id, blog_id, like });
             setLikes(prev => like? prev - 1 : prev + 1);
             setLike(prev => !prev);
         } catch(error : any) {
@@ -20,15 +19,9 @@ export const LikeComponent = ({ totalLikes, owner_id, blog_id, isLike  } : { tot
 
     return(
         <>
-            <div className="flex gap-5">
-                <div>
-                    <PiHandsClappingThin onClick={handleClick} color={like ? "red" : ""} size={"1.6rem"} className="cursor-pointer inline mr-1"  /> 
-                    <span>{likes}</span>
-                </div>
-                <div>
-                    <LiaCommentsSolid size={"1.6rem"} className="cursor-pointer inline mr-1"  /> 
-                    <span>0</span>
-                </div>
+            <div>
+                <PiHandsClappingThin onClick={handleClick} color={like ? "red" : ""} size={"1.6rem"} className="cursor-pointer inline mr-1"  /> 
+                <span>{likes}</span>
             </div>
         </>
     )

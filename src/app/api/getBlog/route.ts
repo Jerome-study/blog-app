@@ -11,7 +11,10 @@ export async function GET(request: NextRequest) {
         if (!data.rowCount) return NextResponse.json({ messaeg: "Blog no content" }, { status: 203 });
         const blog = data.rows[0];
         const totalLikes = (await pool.query(queries.getBlogLikes, [blog.id])).rowCount;
-        return NextResponse.json({ blog, totalLikes });
+        const comments = await pool.query(queries.getBlogComment, [blog.id]);
+        const blogComments = comments.rows;
+        const blogTotalComments = comments.rowCount;
+        return NextResponse.json({ blog, totalLikes, blogComments, blogTotalComments });
     } catch(error : any) {
         console.log(error.message)
     }

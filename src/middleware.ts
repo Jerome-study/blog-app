@@ -17,12 +17,12 @@ export async function middleware(request: NextRequest) {
     }
 
     // If user is not Authenticated and wants to create or edit a blog (Route Handler)
-    if (routes('/api/createBlog') || routes('/api/editBlog') || routes('/api/deleteBlog') || routes('/api/likeBlog') ) {
+    if (routes('/api/blog')) {
         const isAuthenticated = await verifyJwtJose();
         if (isAuthenticated) {
             return NextResponse.next();
         } else {
-            return NextResponse.json({ message: "You are not authenticated" }, { status: 401 });
+            return NextResponse.json({ message: "You are not authenticated (middleware)" }, { status: 401 });
         }
     }
 
