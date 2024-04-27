@@ -4,7 +4,6 @@ import { instance } from '@/libs/axios';
 import { useRouter } from 'next/navigation';
 
 export const DropDown = ({ username } : { username: string | undefined}) => {
-    const router = useRouter();
     const logout = async () => {
         try {
             await instance.post("/api/logout");

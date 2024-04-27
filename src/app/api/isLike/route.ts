@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         const response = (await pool.query(queries.isLike, [blog_id, liker_id])).rowCount;
         const result = response? true : false
         return NextResponse.json({ result })
-    } catch(error) {
-
+    } catch(error : any) {
+        return NextResponse.json({}, { status: error.response?.status || 500})
     }
 }

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
         const totalLikes = (await pool.query(queries.getUserBlogTotalLikes, [user_id])).rowCount;
         const totalLiked = (await pool.query(queries.getUserBlogTotalLiked, [user_id])).rowCount
         return NextResponse.json({ blog: data, totalLikes, totalLiked });
-    } catch(error) {
-
+    } catch(error : any) {
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }

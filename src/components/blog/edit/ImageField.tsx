@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 
 export const EditImageField = ({ currentImage, setFile, selectedImage, setSelectedImage, setCurrentImage } : any) => {
 
@@ -25,10 +25,10 @@ export const EditImageField = ({ currentImage, setFile, selectedImage, setSelect
                 </div>
             }
 
-            {(currentImage || selectedImage )&& 
+            {(currentImage || selectedImage ) && 
                 <div>
                     <button onClick={removeImage} className="bg-rose-800 py-3 px-7 rounded-xl font-black text-white w-fit">Remove Image</button>
-                    <img className="w-max md:max-w-screen-md md:mx-auto" src={ selectedImage || currentImage } alt="image-blog"/>   
+                    <Image className="w-max md:max-w-screen-md md:mx-auto bg-zinc-950" src={ selectedImage || currentImage } width={500} height={250} alt="image-blog"/>   
                 </div>
             
             }

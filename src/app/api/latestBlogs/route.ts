@@ -9,6 +9,6 @@ export async function GET(request: NextRequest) {
         const latestBlogs = response.rows;
         return NextResponse.json({ latestBlogs });
     } catch(error : any) {
-        console.log(error.message)
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }

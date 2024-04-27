@@ -60,5 +60,5 @@ export interface BlogCommentsProps {
     comment: string,
     blog_id: string,
     owner_id: string,
-    commener_id: string
+    commenter_id: string
 }

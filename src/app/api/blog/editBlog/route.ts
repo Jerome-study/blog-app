@@ -33,6 +33,6 @@ export async function POST(request : NextRequest) {
         await pool.query(queries.editBlog, [title, description, hasImage, slug, blog.id, user_id]);
         return NextResponse.json({ success: true });
     } catch(error : any) {
-       console.log(error?.message);
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }

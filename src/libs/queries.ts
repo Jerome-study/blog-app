@@ -33,6 +33,7 @@ const createCommentTable = `CREATE TABLE IF NOT EXISTS comments (
     blog_id uuid NOT NULL,
     owner_id uuid NOT NULL,
     commenter_id uuid NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (blog_id) REFERENCES blogs(id)
 )`;
 

@@ -32,6 +32,6 @@ export async function POST(request : NextRequest) {
         })
         return NextResponse.json({ message: "Login" });
     } catch(error : any) {
-       
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }

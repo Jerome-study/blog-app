@@ -12,6 +12,6 @@ export async function POST(request: NextRequest) {
         !like? await pool.query(queries.likeBlog, [blog_id, owner_id, liker_id]) : await pool.query(queries.unLikeBlog, [blog_id, owner_id, liker_id])
         return NextResponse.json({ success: true });
     } catch(error : any) {
-        console.log(error?.message)
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }

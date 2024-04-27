@@ -30,6 +30,6 @@ export async function POST(request : NextRequest) {
         const blog_id = result.rows[0].id;
         return NextResponse.json({ blog_id });
     } catch(error : any) {
-       console.log(error?.message);
+       return NextResponse.json({}, { status: error.response.status})
     }
 }

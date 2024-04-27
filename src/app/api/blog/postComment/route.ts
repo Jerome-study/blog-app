@@ -10,8 +10,9 @@ export async function POST(request: NextRequest) {
         const { comment, blog_id, owner_id } = await request.json();
         if (!comment) return NextResponse.json({ message: "Please put a comment!" }, { status: 203 });
         await pool.query(queries.postComment, [blog_id, owner_id, decoded.id, comment]);
-        return NextResponse.json({ success: true });
-    } catch(error) {
-
+        const newComments = (await pool.query(queries.getBlogComment, [blog_id] )).rows
+        return NextResponse.json({ newComments });
+    } catch(error : any) {
+        return NextResponse.json({}, { status: error.response.status || 500})
     }
 }
