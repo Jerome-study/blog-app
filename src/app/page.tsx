@@ -1,11 +1,10 @@
 import { HomeComponent } from "@/components/home/home";
-import { instance } from "@/libs/axios";
-
 export const revalidate = 0;
 
 export default async function Home() {
-  const response = await instance.get("/api/latestBlogs");
-  const { latestBlogs } = response.data;
+  const result = await fetch(`${process.env.BASE_URL}/api/latestBlogs`);
+  const response = await result.json();
+  const { latestBlogs } = response;
   return (
     <main className="py-5">
       <HomeComponent latestBlogs={latestBlogs}  />
