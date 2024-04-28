@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { pool } from "@/libs/database";
 import queries from "@/libs/queries";
 
-export const revalidate = 0;
+export const revalidate = 15;
 
 export async function GET(request: NextRequest) {
     try {
