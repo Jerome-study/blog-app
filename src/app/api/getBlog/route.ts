@@ -16,6 +16,6 @@ export async function GET(request: NextRequest) {
         const blogTotalComments = comments.rowCount;
         return NextResponse.json({ blog, totalLikes, blogComments, blogTotalComments });
     } catch(error : any) {
-        return NextResponse.json({}, { status: error.response.status || 500})
+        return NextResponse.json({}, { status: error.response?.status || 500})
     }
 }
