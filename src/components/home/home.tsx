@@ -2,10 +2,12 @@ import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 import { instance } from "@/libs/axios";
 import { blogDetails } from "@/models/definition";
 
+export const revalidate = 0;
+
 export const HomeComponent = async () => {
     const response = await instance.get("/api/latestBlogs");
     const { latestBlogs } = response.data;
-    
+
     return(
         <>
             <section className="text-center px-3 lg:max-w-4xl lg:mx-auto">
