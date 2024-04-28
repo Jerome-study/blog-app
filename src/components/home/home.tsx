@@ -1,7 +1,10 @@
-import { blogDetails } from "@/models/definition";
 import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
+import { instance } from "@/libs/axios";
+import { blogDetails } from "@/models/definition";
 
-export const HomeComponent = async ({ latestBlogs } : { latestBlogs: blogDetails[]}) => {
+export const HomeComponent = async () => {
+    const response = await instance.get("/api/latestBlogs");
+    const { latestBlogs } = response.data;
     
     return(
         <>
@@ -13,7 +16,7 @@ export const HomeComponent = async ({ latestBlogs } : { latestBlogs: blogDetails
                 <div className="container px-3">
                     <h1 className="font-black text-3xl mb-7 lg:text-4xl">Latest Blogs</h1>
                     { latestBlogs.length ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                        { latestBlogs.map(blog => {
+                        { latestBlogs.map((blog : blogDetails ) => {
                             return(
                                 <BlogCardContainer key={blog.id} blog={blog} inDashboard={false} />
                             )
