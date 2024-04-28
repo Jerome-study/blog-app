@@ -1,10 +1,12 @@
 import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 import { blogDetails } from "@/models/definition";
 
-export const revalidate = 0;
-
 export const HomeComponent = async () => {
-    const result = await fetch(`${process.env.BASE_URL}/api/latestBlogs`);
+    const result = await fetch(`${process.env.BASE_URL}/api/latestBlogs`, {
+        next: {
+            revalidate: 0
+        }
+    });
     const response = await result.json();
     const { latestBlogs } = response;
 
