@@ -1,6 +1,8 @@
 import { HomeComponent } from "@/components/home/home";
 import { instance } from "@/libs/axios";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const response = await instance.get("/api/latestBlogs");
   const { latestBlogs } = response.data;
