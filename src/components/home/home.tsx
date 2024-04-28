@@ -1,15 +1,19 @@
 import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 import { blogDetails } from "@/models/definition";
 
-export const HomeComponent = async () => {
+async function getLatestBlogs() {
     const result = await fetch(`${process.env.BASE_URL}/api/latestBlogs`, {
         next: {
             revalidate: 0
         }
     });
     const response = await result.json();
-    const { latestBlogs } = response;
+    return response.latestBlogs;
+}
 
+export const HomeComponent = async () => {
+    const latestBlogs = await getLatestBlogs();
+    console.log(latestBlogs)
     return(
         <>
             <section className="text-center px-3 lg:max-w-4xl lg:mx-auto">

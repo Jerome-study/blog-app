@@ -1,11 +1,12 @@
 import { HomeComponent } from "@/components/home/home";
-
-export const revalidate = 0;
+import { Suspense } from "react";
 
 export default async function Home() {
   return (
     <main className="py-5">
-      <HomeComponent />
+      <Suspense fallback={<h1>Loading</h1>}>
+        <HomeComponent />
+      </Suspense>
     </main>
   );
 }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { pool, connectPostgres } from "@/libs/database";
 import queries from "@/libs/queries";
 
+export const revalidate = 0;
+
 export async function GET(request: NextRequest) {
     try {
         await connectPostgres();
