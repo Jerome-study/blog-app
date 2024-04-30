@@ -8,7 +8,7 @@ export const LikeComponent = ({ totalLikes, owner_id, blog_id, isLike  } : { tot
     const [like, setLike] = useState(isLike || false);
     const handleClick = async () => {
         try {
-            await instance.post("/api/blog/likeBlog", { owner_id, blog_id, like });
+            await instance.post("/api/blog/like", { owner_id, blog_id, like });
             setLikes(prev => like? prev - 1 : prev + 1);
             setLike(prev => !prev);
         } catch(error : any) {

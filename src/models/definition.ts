@@ -53,6 +53,8 @@ export interface BlogCardComponentProps {
     inDashboard?: boolean,
     user: userDetails,
     blog: blogDetails,
+    totalLikes : number,
+    totalComment: number
 }
 
 export interface BlogCommentsProps {

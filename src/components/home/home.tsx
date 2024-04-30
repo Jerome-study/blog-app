@@ -1,15 +1,14 @@
 import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 import { blogDetails } from "@/models/definition";
+import { instance } from "@/libs/axios";
 
 async function getLatestBlogs() {
-    const result = await fetch(`${process.env.BASE_URL}/api/latestBlogs`);
-    const response = await result.json();
-    return response.latestBlogs;
+    const response = await instance.get(`${process.env.BASE_URL}/api/latestBlogs`);
+    return response.data.latestBlogs || [];
 }
 
 export const HomeComponent = async () => {
     const latestBlogs = await getLatestBlogs();
-    console.log(latestBlogs)
     return(
         <>
             <section className="text-center px-3 lg:max-w-4xl lg:mx-auto">

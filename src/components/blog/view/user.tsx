@@ -3,10 +3,8 @@
 import { instance } from "@/libs/axios"
 import { BlogCommentsProps } from "@/models/definition"
 import { useEffect, useState } from "react"
-import { PiHandsClappingLight } from "react-icons/pi";
 import { useRouter } from "next/navigation";
-
-export const revalidate = 0
+import { UserCommentLike } from "./UserCommentLike";
 
 export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}) => {
     const router = useRouter();
@@ -14,17 +12,16 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await instance.get("/api/getUsername", { params: { user_id : blogComment.commenter_id}})
-                setUser(response.data)
+                // Get the names of each users comment
+                const response = await instance.get("/api/getUsername", { params: { user_id : blogComment.commenter_id}});
+                const user = response?.data;
+                setUser(user)
             } catch(error) {
                 if (error) return router.push('/Error');
             }
         }
-
         getUser()
-
-    }, [])
-
+    }, []);
 
     return(
         <>
@@ -40,7 +37,7 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
                 </div>
                 <p className="italic">{blogComment.comment}</p>
                 <div className="mt-2">
-                    <PiHandsClappingLight size={"1.7rem"} />
+                    <UserCommentLike comment_id={blogComment.id} owner_id={blogComment.owner_id}/>
                 </div>
             </div>
         </>

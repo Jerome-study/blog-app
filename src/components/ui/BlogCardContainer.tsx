@@ -9,12 +9,14 @@ export const revalidate = 0;
 
 export const BlogCardContainer = async ({ blog, inDashboard } : { blog: blogDetails, inDashboard: boolean | undefined }) => {
   const response = await pool.query(queries.getUserDetails, [blog?.user_id]);
+  const totalLikes = (await pool.query(queries.getBlogLikes, [blog.id])).rowCount || 0;
+  const totalComment = (await pool.query(queries.getBlogComment, [blog.id])).rowCount || 0;
   const user: userDetails = response.rows[0];
   const image = await getImage(blog.image, blog.id);
   
   return(
       <>
-          <BlogCard image={image} inDashboard={inDashboard} user={user} blog={blog} />
+          <BlogCard totalLikes={totalLikes} totalComment={totalComment} image={image} inDashboard={inDashboard} user={user} blog={blog} />
       </>
   )
 }

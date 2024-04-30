@@ -8,7 +8,7 @@ import { LiaCommentsSolid } from "react-icons/lia";
 import { Modal } from "./Modal";
 import { useEffect, useState } from "react";
 
-export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentProps) => {
+export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, blog } : BlogCardComponentProps) => {
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
     const message = {
@@ -42,7 +42,7 @@ export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentP
     return(
         <>
             { showModal && <Modal setState={setShowModal} message={message} handleClick={deleteBlog}/> }
-            <div className=" shrink-0 w-72 md:w-full border shadow rounded-md my-4 shadow mx-auto">
+            <div className=" w-full md:w-full border shadow rounded-md my-4 shadow mx-auto">
                 <div onClick={() => window.location.href=`/blog/view/${blog.slug}`} className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
 
                 </div>
@@ -54,11 +54,11 @@ export const BlogCard = ({ image, inDashboard, user, blog } : BlogCardComponentP
                                 <div className="flex gap-5">
                                     <div>
                                         <PiHandsClappingThin size={"1.6rem"} className="inline mr-1"  /> 
-                                        <span>{blog?.likes}</span>
+                                        <span>{totalLikes}</span>
                                     </div>
                                     <div>
                                         <LiaCommentsSolid size={"1.6rem"} className="inline mr-1"/>
-                                        <span>{blog?.likes}</span>
+                                        <span>{totalComment}</span>
                                     </div>
                                 </div>
                                 <div className="flex gap-2 items-center">

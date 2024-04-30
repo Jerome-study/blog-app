@@ -30,7 +30,7 @@ export const ViewComponent = async ({ blog, totalLikes, blogComments, blogTotalC
             </section>
             <section className="container max-w-screen-md mt-3 flex gap-4">
                 <LikeComponent owner_id={blog.user_id} blog_id={blog.id} totalLikes={totalLikes} isLike={isLike}/>
-                <CommentComponent blog={blog} blogTotalComments={blogTotalComments} blogComments={blogComments}/>
+                <CommentComponent user_id={user.id} blog={blog} blogTotalComments={blogTotalComments} blogComments={blogComments}/>
             </section>
         </>
     )

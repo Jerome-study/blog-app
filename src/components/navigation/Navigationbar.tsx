@@ -1,4 +1,4 @@
-import { Navlinks } from "./Navlinks";
+import { NavLinks } from "./Navlinks";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { instance } from "@/libs/axios";
@@ -21,7 +21,7 @@ export const NavigationBar = async () => {
     const username = response.data.username || undefined;
     return(
         <>
-            <Navlinks isAuthenticated={isAuthenticated} username={username} />
+            <NavLinks isAuthenticated={isAuthenticated} username={username} />
         </>
     )
 }
