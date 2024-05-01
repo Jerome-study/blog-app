@@ -2,10 +2,16 @@ import { redirect } from "next/navigation";
 import { ViewComponent } from "@/components/blog/view/View";
 import { instance } from "@/libs/axios";
 
-async function ViewBlogPage({ params } : { params: { slug : string}}) {
-    const { slug } = params;
+
+const getBlog = async (slug: string) => {
     const response = await instance.get("/api/getBlog", { params : { slug }});
     if (response.status === 203) return redirect("/Error");
+    return response;
+}
+
+async function ViewBlogPage({ params } : { params: { slug : string}}) {
+    const { slug } = params;
+    const response = await getBlog(slug)
     const { blog, totalLikes, blogComments, blogTotalComments } = response?.data;
     
     return(

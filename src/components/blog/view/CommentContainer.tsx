@@ -10,7 +10,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
     const [comment, setComment] = useState("");
     const [commentLoading, setCommentLoading] = useState(false)
     const [validate, setValidate] = useState("")
-    const [comments, setComments] = useState(blogComments);
+    const [userComments, setUserComments] = useState(blogComments);
     const postComment = async () => {
         setValidate("");
         if (!comment) return setValidate("Please put a comment!");
@@ -18,7 +18,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
         try {
             const response = await instance.post("/api/blog/postComment", { comment, owner_id: blog.user_id, blog_id: blog.id });
             if (response.status === 203) return setValidate(response.data.message);
-            setComments(response.data.newComments);
+            setUserComments(response.data.newComments);
             setComment("");
         } catch(error : any) {
             if (error.response.status === 401 || error.response.status === 403) return alert(error.response.data.message)
@@ -29,8 +29,8 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
 
     return(
         <>
-            <div className={`${showComment ? "w-full left-0 " : "-left-full"} transition-all fixed top-0 bottom-0 z-50 overflow-auto`}>
-                <div className={`${showComment ? "w-full sm:w-3/4 md:w-2/4 lg:w-4/12" : "-w-96"} transition-all fixed top-0 bg-white bottom-0 p-5 overflow-auto`}>
+            <div className={`${showComment ? "w-full left-0 " : "-left-96 opacity-0"} transition-all fixed top-0 bottom-0 z-50`}>
+                <div className={`${showComment ? "w-full sm:w-3/4 md:w-2/4 xl:w-4/12" : "-w-96"} transition-all fixed top-0 bg-white bottom-0 p-5 overflow-auto`}>
                     <GiCrossMark className="ms-auto cursor-pointer" size={"2rem"} onClick={() => setShowComment((prev : boolean ) => !prev)}/>
                     <h1 className="text-center text-2xl font-black">Blog App</h1>
 
@@ -44,7 +44,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
                         <div className="grid mt-12 gap-5">
                            {blogComments.length === 0 && <span className="text-gray-500">No Comment</span>} 
 
-                           { comments.map(blogComment => {
+                           { userComments.map(blogComment => {
                                 return(
                                     <UserComment key={blogComment.id} blogComment={blogComment} />
                                 )

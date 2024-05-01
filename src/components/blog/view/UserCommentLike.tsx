@@ -3,12 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./comment";
 import { PiHandsClappingLight } from "react-icons/pi";
 import { instance } from "@/libs/axios";
-
+import { useRouter } from "next/navigation";
 
 export const UserCommentLike = ({ comment_id, owner_id } : { comment_id : string, owner_id : string }) => {
     const { user_id } = useContext(UserContext);
     const [isLike, setIsLike] = useState(false);
     const [totalLikes, setTotalLikes] = useState(0);
+    const router = useRouter();
     useEffect(() => {
         const getLikes = async () => {
             try {
@@ -18,7 +19,7 @@ export const UserCommentLike = ({ comment_id, owner_id } : { comment_id : string
                 setIsLike(isLikedByUser);
 
             } catch(error : any) {
-                console.log(error?.response.message)
+                router.push("/Error")
             }
         }
 
