@@ -43,14 +43,13 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
         <>
             { showModal && <Modal setState={setShowModal} message={message} handleClick={deleteBlog}/> }
             <div className=" w-full md:w-full border shadow rounded-md my-4 shadow mx-auto">
-                <div onClick={() => window.location.href=`/blog/view/${blog.slug}`} className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
+                <div className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
 
                 </div>
-                <div className="py-5 px-3">
+                <div className="py-4 px-3">
                     <h1 className="font-bold text-2xl overflow-hidden">{blog?.title}</h1>
-                    <p className="text-sm truncate">{blog?.description}</p>
                     { !inDashboard ? 
-                            <div className="grid mt-3 gap-3 ">
+                            <div className="grid my-2 gap-3 ">
                                 <div className="flex gap-5">
                                     <div>
                                         <PiHandsClappingThin size={"1.6rem"} className="inline mr-1"  /> 
@@ -69,6 +68,9 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
                                         <h1 className="font-black block">{user.first_name + " " + user.last_name}</h1>
                                         <p className="block text-xs text-slate-500 font-black">{user.username}</p>
                                     </div> 
+                                </div>
+                                <div>
+                                    <button className="w-full bg-blue-800 text-white font-semibold px-8 py-2 text-sm rounded-xl" onClick={() => window.location.href="/blog/view/" + blog.slug}>Read</button>
                                 </div>
                             </div>
                             :
