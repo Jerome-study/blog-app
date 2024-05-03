@@ -29,7 +29,7 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
           }
           router.refresh();
         } catch(error : any) {
-            router.push("/Error");
+            console.log(error?.response);
         } finally {
             setShowModal(prev => !prev)
         }

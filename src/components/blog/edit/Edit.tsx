@@ -53,8 +53,6 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
         } catch(error : any) {
             console.log(error?.response?.data?.message);
             window.location.href = "/Error"
-        } finally {
-            setShowModal(prev => !prev)
         }
     }
     
