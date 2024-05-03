@@ -42,6 +42,7 @@ const createLikeCommentTable = `CREATE TABLE IF NOT EXISTS likeComment (
     comment_id uuid NOT NULL,
     owner_id uuid NOT NULL,
     liker_id uuid NOT NULL,
+    blog_id uuid NOT NULL,
     FOREIGN KEY (comment_id) REFERENCES comments(id)
 )`
 
@@ -57,6 +58,8 @@ const isBlogExistFromUser = `SELECT * FROM blogs WHERE slug = $1 AND user_id = $
 const editBlog = `UPDATE blogs SET title =$1, description = $2, image = $3, slug = $4 WHERE id = $5 AND user_id = $6`;
 const deleteBlog = `DELETE FROM blogs WHERE id = $1 AND user_id = $2`;
 const deleteBlogLike = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2`;
+const deleteBlogComments = `DELETE FROM comments WHERE blog_id = $1 AND owner_id = $2`;
+const deleteLikeComment = `DELETE FROM likeComment WHERE blog_id = $1`;
 const getBlogLikes = `SELECT * FROM likes WHERE blog_id = $1`;
 const getBlogComment = `SELECT * FROM comments WHERE blog_id = $1`;
 const getUserBlogTotalLikes = `SELECT * FROM likes WHERE owner_id = $1`;
@@ -65,8 +68,8 @@ const likeBlog = `INSERT INTO likes (blog_id, owner_id, liker_id) VALUES($1, $2,
 const unLikeBlog = `DELETE FROM likes WHERE blog_id = $1 AND owner_id = $2 AND liker_id = $3`;
 const isLike = `SELECT * FROM likes WHERE blog_id =$1 AND liker_id = $2`;
 const postComment = `INSERT INTO comments (blog_id, owner_id, commenter_id, comment) VALUES($1, $2, $3, $4)`
-const likeComment = `INSERT INTO likeComment (comment_id, owner_id, liker_id) VALUES($1, $2, $3)`;
-const unlikeComment = `DELETE FROM likeComment WHERE comment_id = $1 AND owner_id = $2 AND liker_id = $3`
+const likeComment = `INSERT INTO likeComment (comment_id, owner_id, liker_id, blog_id) VALUES($1, $2, $3, $4)`;
+const unlikeComment = `DELETE FROM likeComment WHERE comment_id = $1 AND owner_id = $2 AND liker_id = $3 AND blog_id = $4`
 const isCommentLike = `SELECT * FROM likeComment WHERE comment_id = $1 AND liker_id = $2`;
 const commentTotalLikes = `SELECT * FROM likeComment WHERE comment_id = $1`;
 
@@ -88,6 +91,8 @@ const queries = {
     editBlog,
     deleteBlog,
     deleteBlogLike,
+    deleteBlogComments,
+    deleteLikeComment,
     getBlogLikes,
     getBlogComment,
     getUserBlogTotalLikes,

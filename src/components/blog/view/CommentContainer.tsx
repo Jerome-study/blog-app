@@ -29,7 +29,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
 
     return(
         <>
-            <div className={`${showComment ? "w-full left-0 " : "-left-96 -ml-96"} transition-all fixed top-0 bottom-0 z-50`}>
+            <div className={`${showComment ? "w-full left-0 " : "hidden"} transition-all fixed top-0 bottom-0 z-50`}>
                 <div className={`${showComment ? "w-full sm:w-3/4 md:w-2/4 xl:w-4/12" : "-w-96"} transition-all fixed top-0 bg-white bottom-0 p-5 overflow-auto`}>
                     <GiCrossMark className="ms-auto cursor-pointer" size={"2rem"} onClick={() => setShowComment((prev : boolean ) => !prev)}/>
                     <h1 className="text-center text-2xl font-black">Blog App</h1>

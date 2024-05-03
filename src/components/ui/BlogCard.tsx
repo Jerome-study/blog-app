@@ -42,7 +42,7 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
     return(
         <>
             { showModal && <Modal setState={setShowModal} message={message} handleClick={deleteBlog}/> }
-            <div className=" w-full md:w-full border shadow rounded-md my-4 shadow mx-auto">
+            <div className=" w-60 md:w-full border shadow rounded-md my-4 shadow mx-auto">
                 <div className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
 
                 </div>

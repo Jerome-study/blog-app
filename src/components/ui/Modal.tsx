@@ -8,7 +8,6 @@ export const Modal = ({ setState, message, handleClick } : { setState : Function
     const performClick = async () => {
         setLoading(true);
         await handleClick();
-        setLoading(false);
     }
 
     return(

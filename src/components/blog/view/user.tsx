@@ -21,7 +21,7 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
             }
         }
         getUser()
-    }, []);
+    }, [blogComment.commenter_id, router]);
 
     return(
         <>

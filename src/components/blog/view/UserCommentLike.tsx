@@ -6,7 +6,7 @@ import { instance } from "@/libs/axios";
 import { useRouter } from "next/navigation";
 
 export const UserCommentLike = ({ comment_id, owner_id } : { comment_id : string, owner_id : string }) => {
-    const { user_id } = useContext(UserContext);
+    const { user_id, blog_id } = useContext(UserContext);
     const [isLike, setIsLike] = useState(false);
     const [totalLikes, setTotalLikes] = useState(0);
     const router = useRouter();
@@ -24,11 +24,11 @@ export const UserCommentLike = ({ comment_id, owner_id } : { comment_id : string
         }
 
         getLikes();
-    }, []);
+    }, [comment_id, router, user_id]);
 
     const handleClick = async () => {
         try {
-            await instance.post("/api/blog/like", { comment_id, like: isLike, owner_id });
+            await instance.post("/api/blog/like", { comment_id, like: isLike, owner_id, blog_id });
             setIsLike(prev => !prev);
             setTotalLikes(prev => isLike ? prev - 1 : prev + 1);
         } catch(error : any) {
