@@ -39,7 +39,7 @@ export const UserCommentLike = ({ comment_id, owner_id } : { comment_id : string
 
     return(
         <>
-            <PiHandsClappingLight className="cursor-pointer inline mr-2" onClick={handleClick} size={"1.7rem"} color={isLike ? "red" : ""} />
+            <PiHandsClappingLight className="cursor-pointer inline mr-2" onClick={handleClick} size={"1.2rem"} color={isLike ? "red" : ""} />
             <span>{totalLikes}</span>
         </>
     )

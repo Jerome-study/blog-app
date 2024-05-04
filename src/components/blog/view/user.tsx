@@ -5,6 +5,7 @@ import { BlogCommentsProps } from "@/models/definition"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
 import { UserCommentLike } from "./UserCommentLike";
+import { CiStar } from "react-icons/ci";
 
 export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}) => {
     const router = useRouter();
@@ -25,14 +26,17 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
 
     return(
         <>
-            <div className="">
-                <div className="mb-5 flex items-center gap-5">
-                    <div className="rounded-full h-10 w-10 bg-slate-900">
+            <div className="border-b pb-2">
+                <div className="mb-1 flex items-center gap-2">
+                    <div className="rounded-full h-8 w-8 bg-slate-900">
 
                     </div>
                     <div>
-                        <h1 className="text-lg font-black">{user?.first_name} {user?.last_name} {blogComment.owner_id === blogComment.commenter_id && "(Creator)"}</h1>
-                        <p className="text-sm text-gray-500 italic font-black">{user?.username}</p>
+                        <div className="flex gap-2 items-center">
+                            <h1 className="text-md font-semibold">{user?.first_name} {user?.last_name}</h1>
+                            {blogComment.owner_id === blogComment.commenter_id &&  <CiStar />}
+                        </div>
+                        <p className="text-sm text-gray-500 italic font-light">{user?.username}</p>
                     </div>
                 </div>
                 <p className="italic">{blogComment.comment}</p>

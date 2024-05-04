@@ -17,7 +17,7 @@ export const NavLinks = ({ isAuthenticated, username } : { isAuthenticated : Boo
 
 
     return(
-            <div className={`${styles.font_family} bg-black py-6 px-3`}>
+            <div className={`${styles.font_family} bg-black py-6 px-3 sticky top-0 z-50`}>
                 <div className="flex justify-between items-center container z-50">
                     <h1 className="text-white font-bold text-2xl">Blog App</h1>
                     <div className={`${open ? "right-0 w-full  sm:w-4/6 md:w-max" : "w-0 -right-96 md:w-max " } z-50 flex flex-col items-center justify-center  gap-8 bg-black fixed top-0 bottom-0 md:pt-0 md:pl-0 md:static md:flex-row transition-all duration-300 ease-in-out`}>

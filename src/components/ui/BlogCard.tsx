@@ -42,14 +42,14 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
     return(
         <>
             { showModal && <Modal setState={setShowModal} message={message} handleClick={deleteBlog}/> }
-            <div className=" w-60 md:w-full border shadow rounded-md my-4 shadow mx-auto">
-                <div className="cursor-pointer min-h-48 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
+            <div className=" w-4/5 md:w-full border shadow rounded-md my-4 shadow mx-auto">
+                <div className="cursor-pointer min-h-40 bg-no-repeat bg-cover bg-slate-950 rounded-t-md" style={{ backgroundImage: `url("${image}")`}}>
 
                 </div>
-                <div className="py-4 px-3">
-                    <h1 className="font-bold text-2xl overflow-hidden">{blog?.title}</h1>
+                <div className="py-2 px-3">
+                    <h1 className="font-bold text-xl overflow-hidden">{blog?.title}</h1>
                     { !inDashboard ? 
-                            <div className="grid my-2 gap-3 ">
+                            <div className="grid my-1 gap-3 ">
                                 <div className="flex gap-5">
                                     <div>
                                         <PiHandsClappingThin size={"1.6rem"} className="inline mr-1"  /> 
@@ -74,7 +74,7 @@ export const BlogCard = ({ totalComment, totalLikes, image, inDashboard, user, b
                                 </div>
                             </div>
                             :
-                            <div className="flex gap-4 mt-5 justify-center">
+                            <div className="flex gap-4 my-3 justify-center">
                                 <button onClick={() => window.location.href=`/blog/edit/${blog.slug}`} className="bg-amber-100 rounded-xl py-2 font-black w-full">Edit</button>
                                 <button onClick={() => setShowModal(prev => !prev)} className="bg-rose-800 rounded-xl py-2 text-white font-black w-full">Delete</button>
                             </div>

@@ -42,7 +42,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
                         </div>
 
                         <div className="grid mt-12 gap-5">
-                           {blogComments.length === 0 && <span className="text-gray-500">No Comment</span>} 
+                           {userComments.length === 0 && <span className="text-gray-500">No Comment</span>} 
 
                            { userComments.map(blogComment => {
                                 return(

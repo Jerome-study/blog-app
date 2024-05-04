@@ -34,7 +34,7 @@ export const DashboardComponent = async () => {
     return(
         <>
             <section className="container px-3">
-                <h1 className="text-4xl font-light text-center">Dashboard</h1>
+                <h1 className="text-4xl font-black uppercase my-5 text-center">Dashboard</h1>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-12 max-w-screen-xl mx-auto">
                     {dashboardCards.map((dashBoardCard : DashBoardCardProps) => {
@@ -49,7 +49,7 @@ export const DashboardComponent = async () => {
                 <h1 className="text-4xl font-light">Your Blogs</h1>
 
                 { blogList.length > 0 && 
-                    <div className="grid grid-flow-col gap-4 overflow-auto md:grid-cols-3 lg:grid-cols-4">
+                    <div className="grid gap-4 overflow-auto md:grid-cols-3 lg:grid-cols-4">
                         {blogList.map((blog : blogDetails) => {
                             return(
                                 <BlogCardContainer key={blog.id} blog={blog} inDashboard={true}  />

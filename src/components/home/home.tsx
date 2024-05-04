@@ -1,6 +1,7 @@
 import { BlogCardContainer } from "@/components/ui/BlogCardContainer";
 import { blogDetails } from "@/models/definition";
 import { instance } from "@/libs/axios";
+import { supabase } from "@/libs/supabase";
 
 async function getLatestBlogs() {
     const response = await instance.get(`${process.env.BASE_URL}/api/latestBlogs`);

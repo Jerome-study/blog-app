@@ -27,7 +27,7 @@ export const EditImageField = ({ currentImage, setFile, selectedImage, setSelect
 
             {(currentImage || selectedImage ) && 
                 <div>
-                    <button onClick={removeImage} className="bg-rose-800 py-3 px-7 rounded-xl font-black text-white w-fit">Remove Image</button>
+                    <button onClick={removeImage} className="bg-rose-800 py-3 px-7 rounded-xl font-black text-white w-fit mb-4">Remove Image</button>
                     <Image className="w-max md:max-w-screen-md md:mx-auto bg-zinc-950" src={ selectedImage || currentImage } width={500} height={250} alt="image-blog"/>   
                 </div>
             

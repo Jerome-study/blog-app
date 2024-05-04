@@ -60,26 +60,29 @@ export const EditComponent = ({ blog, image  } : { blog : blogDetails | any, ima
         <>
             { showModal && <Modal message={message} setState={setShowModal} handleClick={handleSubmit(onSubmit)} />}
             <section className="mt-12 container">
-                <h1 className="w-full py-5 text-5xl container text-center">Edit Blog</h1>
+                <h1 className="w-full py-5 text-5xl font-black container text-center">Edit Blog</h1>
             </section>
 
             <form onSubmit={handleSubmit(onSubmit)} className="container mt-7 grid gap-5">
-                <div className="grid gap-3 ">
-                    <h1 className="font-semibold text-3xl">Image <span className="text-xl">(optional)</span></h1>
+                <div className="grid gap-3">
+                    <div className="flex items-center gap-1">
+                        <h1 className="uppercase font-black text-2xl">Image</h1>
+                        <p className="uppercase text-sm font-black text-gray-500">(optional)</p>
+                    </div>
                     <EditImageField currentImage={currentImage} setFile={setFile} selectedImage={selectedImage} setCurrentImage={setCurrentImage} setSelectedImage={setSelectedImage} />
                 </div>
 
                 <div className="grid gap-3">
-                    <h1 className="font-semibold text-3xl">Title</h1>
-                    <input type="text" className="py-3 w-full rounded-xl font-black text-2xl" 
+                    <h1 className="font-black text-2xl uppercase">Title</h1>
+                    <input type="text" className="py-3 w-full font-bold text-md outline-none" 
                         {...register("title", { value: blog?.title })}
                     />
                     { errors.title && <span className="text-red-600 font-normal">{errors.title.message}</span>}
                 </div>
 
                 <div className="grid gap-3">
-                    <h1 className="font-semibold text-3xl">Description</h1>
-                    <textarea className="py-3 w-full rounded-xl resize-none text-xl" rows={10} 
+                    <h1 className="font-black text-2xl">Description</h1>
+                    <textarea className="py-3 w-full resize-none text-md" rows={10} 
                         {...register("description", { value: blog?.description})}
                     />
                     { errors.description && <span className="text-red-600 font-normal">{errors.description.message}</span>}
