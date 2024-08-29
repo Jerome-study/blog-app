@@ -72,6 +72,8 @@ const likeComment = `INSERT INTO likeComment (comment_id, owner_id, liker_id, bl
 const unlikeComment = `DELETE FROM likeComment WHERE comment_id = $1 AND owner_id = $2 AND liker_id = $3 AND blog_id = $4`
 const isCommentLike = `SELECT * FROM likeComment WHERE comment_id = $1 AND liker_id = $2`;
 const commentTotalLikes = `SELECT * FROM likeComment WHERE comment_id = $1`;
+const deleteUserComment = `DELETE FROM comments WHERE blog_id = $1 AND commenter_id = $2 AND id = $3`
+const deleteUserCommentLike = `DELETE FROM likeComment WHERE comment_id = $1`
 
 const queries = {
     getUsername,
@@ -104,7 +106,9 @@ const queries = {
     likeComment,
     unlikeComment,
     isCommentLike,
-    commentTotalLikes
+    commentTotalLikes,
+    deleteUserComment,
+    deleteUserCommentLike
 }
 
 export default queries

@@ -16,3 +16,4 @@ export const signJwt = (id : string) => {
 export const getImage = async (hasImage : boolean, blog_id : string) => {
     return hasImage? `${supabase.storage.from("image-blog").getPublicUrl(`${blog_id}`).data.publicUrl}?bust=${Date.now()}` : "/image-sample.jpg";
 }
+

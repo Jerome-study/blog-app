@@ -1,8 +1,11 @@
+import { Discovercomponent } from "@/components/discover/Discover";
 
 function DiscoverPage() {
     return(
         <>
-            <h1>Discover Page</h1>
+            <main className="py-5">
+                <Discovercomponent />
+            </main>
         </>
     )
 }

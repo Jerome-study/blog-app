@@ -1,28 +1,25 @@
 "use client"
 
-import { instance } from "@/libs/axios"
 import { BlogCommentsProps } from "@/models/definition"
-import { useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
 import { UserCommentLike } from "./UserCommentLike";
 import { CiStar } from "react-icons/ci";
+import { UserContext } from "./comment";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { Dots } from "./Dots";
+import { useFetch } from "@/libs/useSWR";
 
-export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}) => {
+const UserComment = ({ blogComment, gettingDeleted, setGettingDeleted } : { blogComment : BlogCommentsProps, gettingDeleted: string | null, setGettingDeleted: Function}) => {
     const router = useRouter();
-    const [user, setUser] = useState<any>(null)
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                // Get the names of each users comment
-                const response = await instance.get("/api/getUsername", { params: { user_id : blogComment.commenter_id}});
-                const user = response?.data;
-                setUser(user)
-            } catch(error) {
-                if (error) return router.push('/Error');
-            }
-        }
-        getUser()
-    }, [blogComment.commenter_id, router]);
+    const { user_id } = useContext(UserContext);
+    const { data : user, error, isLoading } = useFetch("/api/getUsername" +`?user_id=${blogComment.commenter_id}`)
+    
+    const handleClick = () => {
+        if (gettingDeleted === blogComment.id) return setGettingDeleted("")
+        setGettingDeleted(blogComment.id)
+    }
+    if (error) router.push("/Error")
 
     return(
         <>
@@ -31,12 +28,23 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
                     <div className="rounded-full h-8 w-8 bg-slate-900">
 
                     </div>
-                    <div>
-                        <div className="flex gap-2 items-center">
-                            <h1 className="text-md font-semibold">{user?.first_name} {user?.last_name}</h1>
-                            {blogComment.owner_id === blogComment.commenter_id &&  <CiStar />}
+                    <div className="flex items-center justify-between w-full">
+                        <div>
+                            <div className="flex gap-2 items-center">
+                                {isLoading && <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-2"></div>}
+                                {!isLoading && <h1 className="text-md font-semibold">{user.first_name} {user.last_name}</h1>}
+                                {blogComment.owner_id === blogComment.commenter_id &&  <CiStar />}
+                            </div>
+                            {isLoading && <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-20"></div>}
+                            {!isLoading && <p className="text-sm text-gray-500 italic font-light">{user?.username}</p>}
                         </div>
-                        <p className="text-sm text-gray-500 italic font-light">{user?.username}</p>
+                        {user_id === blogComment.commenter_id && 
+                            <div className="relative">
+                                <HiOutlineDotsVertical onClick={handleClick} className="cursor-pointer" />
+                                { (gettingDeleted === blogComment.id) && <Dots comment_id={blogComment.id} commenter_id={blogComment.commenter_id} />}
+                            </div>
+                        
+                        }
                     </div>
                 </div>
                 <p className="italic">{blogComment.comment}</p>
@@ -47,3 +55,5 @@ export const UserComment = ({ blogComment } : { blogComment : BlogCommentsProps}
         </>
     )
 }
+
+export default memo(UserComment)

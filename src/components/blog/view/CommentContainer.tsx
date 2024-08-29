@@ -3,7 +3,7 @@ import { instance } from "@/libs/axios";
 import { BlogCommentsProps, blogDetails } from "@/models/definition";
 import { useState } from "react";
 import { GiCrossMark } from "react-icons/gi";
-import { UserComment } from "./user";
+import UserComment  from "./user";
 import { Spinner } from "@/components/loading/spinner";
 
 export const CommentContainer = ({ blog, showComment, setShowComment, blogComments }: { blog : blogDetails ,showComment: boolean, setShowComment: Function, blogComments: BlogCommentsProps[] } ) => {
@@ -11,6 +11,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
     const [commentLoading, setCommentLoading] = useState(false)
     const [validate, setValidate] = useState("")
     const [userComments, setUserComments] = useState(blogComments);
+    const [gettingDeleted, setGettingDeleted] = useState<string | null>("")
     const postComment = async () => {
         setValidate("");
         if (!comment) return setValidate("Please put a comment!");
@@ -46,7 +47,7 @@ export const CommentContainer = ({ blog, showComment, setShowComment, blogCommen
 
                            { userComments.map(blogComment => {
                                 return(
-                                    <UserComment key={blogComment.id} blogComment={blogComment} />
+                                    <UserComment gettingDeleted={gettingDeleted} setGettingDeleted={setGettingDeleted} key={blogComment.id} blogComment={blogComment} />
                                 )
                            })}
                            

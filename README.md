@@ -1,11 +1,13 @@
 # Status
-Not Done
+
+Not Done (Close for now)
 
 # Blog App
 
 Practicing Next JS by building a Blog App
 
 # Features
+
 <ul>
     <li>Authentication</li> 
     <li>Dashboard</li>
@@ -16,7 +18,6 @@ Practicing Next JS by building a Blog App
     <li>1 Picture per Blog</li>
     <li>1 Avatar per user</li>
 </ul>
-
 
 # Sample Image
 
@@ -29,3 +30,16 @@ Practicing Next JS by building a Blog App
 <img width="450" height="200" src="https://github.com/Jerome-study/blog-app/assets/119875460/1d182c0a-f44e-4ac6-a189-db650817cf2f" style="vertical-align: top;" />
   </div>
 </div>
+
+# How to setup this project
+
+Create .env.local and put the necessary information and the database for this project is Postgresql
+
+DB_USER=
+DB_HOST=
+DB_PASSWORD=
+DB_NAME=
+ACCESS_TOKEN_SECRET=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+BASE_URL=http://localhost:3000
